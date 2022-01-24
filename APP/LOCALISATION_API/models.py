@@ -43,3 +43,27 @@ class Localisation(db.Model):
         NB! Calls many2many's serialize property.
         """
         return [item.serialize for item in self.many2many]
+
+
+class Distance(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    distance = db.Column(db.FLOAT)
+
+    def __init__(self, distance):
+        self.distance = distance
+
+    @property
+    def serialize(self):
+        """Return object data in easily serializable format"""
+        return {
+            'id': self.id,
+            'distance': self.distance
+        }
+
+    @property
+    def serialize_many2many(self):
+        """
+        Return object's relations in easily serializable format.
+        NB! Calls many2many's serialize property.
+        """
+        return [item.serialize for item in self.many2many]
